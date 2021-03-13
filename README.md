@@ -13,8 +13,8 @@ An easy way to manage dockerized minecraft servers.
 
 ## Usage
 
-Disclaimer: `maas` is only tested with (itzg/docker-minecraft-server)[https://github.com/itzg/docker-minecraft-server], but may work with other server containers, too.
-See the (itzg/docker-minecraft-server/README.md)[https://github.com/itzg/docker-minecraft-server/blob/master/README.md] on how to tune the server for your needs. 
+Disclaimer: `maas` is only tested with [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server), but may work with other server containers, too.
+See the [itzg/docker-minecraft-server/README.md](https://github.com/itzg/docker-minecraft-server/blob/master/README.md) on how to tune the server for your needs. 
 
 ```
 Usage: maas <command>
