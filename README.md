@@ -67,7 +67,7 @@ Here is a very basic example for such a file:
 
 ### Starting a server
 
-`maas up` starts the server and builts the container, if necessary.
+`maas up` starts the server and builds the container, if necessary.
 If you changed the `maas.json` config and there existed a server container before, it's rebuild before starting.
 
 Optionally follow the logs immediately with `--follow`.
