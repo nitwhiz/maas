@@ -13,6 +13,7 @@ type CLI struct {
 	Down             DownCmd          `kong:"cmd,help='Stop server.'"`
 	List             ListCmd          `kong:"cmd,help='List server containers.'"`
 	Logs             LogsCmd          `kong:"cmd,help='Get server container logs.'"`
+	Versions         VersionsCmd      `kong:"cmd,help='Get available versions from manifest.'"`
 }
 
 type Context struct {
