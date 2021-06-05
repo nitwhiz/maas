@@ -34,7 +34,7 @@ func (s *Server) PopulateDefaults() {
 	defaults := Server{
 		VMConfig: VMConfig{
 			Environment: []string{},
-			Image:       "itzg/minecraft-server:java8",
+			Image:       "itzg/minecraft-server:latest",
 		},
 		Settings: Settings{},
 	}

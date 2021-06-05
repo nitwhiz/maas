@@ -10,6 +10,8 @@ import (
 type LogOpts struct {
 	Timestamps bool
 	Follow     bool
+	Since      string
+	Until      string
 }
 
 // GetLogs retrieves the logs of a server container
@@ -28,6 +30,8 @@ func (s *Server) GetLogs(docker *client.Client, opts LogOpts) (io.ReadCloser, er
 		Timestamps: opts.Timestamps,
 		Follow:     opts.Follow,
 		Details:    false,
+		Since:      opts.Since,
+		Until:      opts.Until,
 	})
 
 	if err != nil {
