@@ -27,12 +27,13 @@ Flags:
                 Set the working directory for the command
 
 Commands:
-  create    Create a new server.
-  build     (Re-)create the server container.
-  up        Start server.
-  down      Stop server.
-  list      List server containers.
-  logs      Get server container logs.
+  create      Create a new server.
+  build       (Re-)create the server container.
+  up          Start server.
+  down        Stop server.
+  list        List server containers.
+  logs        Get server container logs.
+  versions    Get available versions from manifest.
 ```
 
 ### Create new server
@@ -85,7 +86,7 @@ Optionally follow the logs immediately with `--follow`.
 
 ```
 NAME           PORT    CONTAINER ID   STATUS                       DATA DIR
-clean_piglin   32265   51bcd2ba4039   Up 7 minutes (healthy)       /srv/minecraft/lemon_piglin
+clean_piglin   32265   51bcd2ba4039   Up 7 minutes (healthy)       /srv/minecraft/clean_piglin
 myserver       42000   cffe70f9f08e   Exited (0) 31 minutes ago    /srv/minecraft/myserver
 lemon_mule     31476   dbb8837e8e20   Up About an hour (healthy)   /srv/minecraft/lemon_mule
 ```
