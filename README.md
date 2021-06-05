@@ -44,7 +44,7 @@ Here is a very basic example for such a file:
 ```json
 {
   "VMConfig": {
-    "Image": "itzg/minecraft-server:java8",
+    "Image": "itzg/minecraft-server:latest",
     "Environment": [],
     "ExposedPort": 42000
   },
