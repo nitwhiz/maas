@@ -6,7 +6,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
-	"github.com/nitwhiz/maas/internal/server"
+	"github.com/nitwhiz/maas/pkg/server"
 	"os"
 	"strconv"
 	"strings"
@@ -40,7 +40,7 @@ func getServers(docker *client.Client) ([]ListServer, error) {
 	for _, c := range containers {
 		configPath := c.Labels["com.github.nitwhiz.maas.configPath"]
 
-		srv, err := server.FromConfig(configPath, server.ConfigOpts{
+		srv, err := server.FromConfig(configPath, server.ConfigOptions{
 			IgnoreErrors: true,
 		})
 
@@ -64,7 +64,7 @@ func (c *ListCmd) Run(ctx *Context) error {
 	}
 
 	writer := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-	_, _ = fmt.Fprintln(writer, "NAME\tPORT\tCONTAINER ID\tSTATUS\tDATA DIR")
+	_, _ = fmt.Fprintln(writer, "NAME\tPORT\tIMAGE\tSTATUS\tDATA DIR")
 
 	for _, srv := range srvs {
 		configPath := srv.Container.Labels["com.github.nitwhiz.maas.configPath"]
@@ -75,14 +75,14 @@ func (c *ListCmd) Run(ctx *Context) error {
 		name := configPathSegments[len(configPathSegments)-2]
 		port := srv.Server.VMConfig.ExposedPort
 		displayedPort := "???"
-		containerId := srv.Container.ID[:12]
+		containerImage := srv.Container.Image
 		status := srv.Container.Status
 
 		if port != 0 {
 			displayedPort = strconv.Itoa(port)
 		}
 
-		_, _ = fmt.Fprintf(writer, "%s\t%s\t%s\t%s\t%s\n", name, displayedPort, containerId, status, configPathDir)
+		_, _ = fmt.Fprintf(writer, "%s\t%s\t%s\t%s\t%s\n", name, displayedPort, containerImage, status, configPathDir)
 	}
 
 	_ = writer.Flush()

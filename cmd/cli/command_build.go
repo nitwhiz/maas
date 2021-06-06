@@ -1,6 +1,8 @@
 package main
 
-import "github.com/nitwhiz/maas/internal/server"
+import (
+	"github.com/nitwhiz/maas/pkg/server"
+)
 
 type BuildCmd struct {
 }
@@ -18,5 +20,9 @@ func (c *BuildCmd) Run(ctx *Context) error {
 		return err
 	}
 
-	return s.Build(ctx.docker)
+	err = s.Build(ctx.docker, server.BuildOptions{
+		PullPrinter: printPullProgress,
+	})
+
+	return err
 }
