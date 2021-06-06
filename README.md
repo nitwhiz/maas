@@ -188,3 +188,6 @@ ID      TYPE      RELEASE TIME                SHA1
 1.9.1   release   2016-03-30T13:43:07+00:00   a7c5c055718d8e7d709f3f2338b4e8f1125b5aae
 ```
 
+## Building
+
+Just run `make` in the project directory. This builds a binary to `build/maas`.
