@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/nitwhiz/maas/internal/server"
 	"github.com/nitwhiz/maas/pkg/namesgenerator"
+	"github.com/nitwhiz/maas/pkg/server"
 	"math/rand"
 	"time"
 )
@@ -12,11 +12,11 @@ var r = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 type CreateCmd struct {
 	GameVersion string   `kong:"required,short='v',help='Minecraft game version'"`
-	Port        int      `kong:"short='p',help='Port to listen on. Defaults to random.'"`
-	Name        string   `kong:"short='n',help='Name for the data directory. Defaults to random.'"`
-	Type        string   `kong:"short='t',default='vanilla',help='Server type. Defaults to vanilla.'"`
-	Image       string   `kong:"short='i',help='Container image to use for this server container.'"`
-	Environment []string `kong:"short='e',help='Additional environment variables for the runtime.'"`
+	Port        int      `kong:"short='p',help='Port to listen on. Selects a random port by default'"`
+	Name        string   `kong:"short='n',help='Name for the data directory. Defaults to random'"`
+	Type        string   `kong:"short='t',default='vanilla',help='Server type. Defaults to vanilla'"`
+	Image       string   `kong:"short='i',help='Container image to use for this server container'"`
+	Environment []string `kong:"short='e',help='Additional environment variables for the runtime'"`
 }
 
 func (c *CreateCmd) Run() error {

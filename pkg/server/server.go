@@ -53,13 +53,13 @@ type Server struct {
 	Settings   Settings
 }
 
-type ConfigOpts struct {
+type ConfigOptions struct {
 	IgnoreErrors bool
 	NoDefaults   bool
 }
 
 // FromConfig reads a config file and populates the server struct accordingly
-func FromConfig(filePath string, opts ConfigOpts) (Server, error) {
+func FromConfig(filePath string, opts ConfigOptions) (Server, error) {
 	srv := Server{}
 
 	bs, err := ioutil.ReadFile(filePath)

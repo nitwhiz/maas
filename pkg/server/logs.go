@@ -7,15 +7,16 @@ import (
 	"io"
 )
 
-type LogOpts struct {
+type LogOptions struct {
 	Timestamps bool
 	Follow     bool
 	Since      string
 	Until      string
+	Tail       string
 }
 
 // GetLogs retrieves the logs of a server container
-func (s *Server) GetLogs(docker *client.Client, opts LogOpts) (io.ReadCloser, error) {
+func (s *Server) GetLogs(docker *client.Client, opts LogOptions) (io.ReadCloser, error) {
 	var out io.ReadCloser
 
 	foundContainer, err := s.FindContainer(docker)
@@ -32,6 +33,7 @@ func (s *Server) GetLogs(docker *client.Client, opts LogOpts) (io.ReadCloser, er
 		Details:    false,
 		Since:      opts.Since,
 		Until:      opts.Until,
+		Tail:       opts.Tail,
 	})
 
 	if err != nil {

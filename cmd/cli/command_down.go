@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/nitwhiz/maas/internal/server"
+	"github.com/nitwhiz/maas/pkg/server"
 )
 
 type DownCmd struct {
-	RemoveContainer bool `kong:"help='Remove server container.'"`
+	RemoveContainer bool `kong:"help='Remove server container'"`
 }
 
 func (d *DownCmd) Run(ctx *Context) error {

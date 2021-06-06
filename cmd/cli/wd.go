@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/nitwhiz/maas/internal/server"
+	"github.com/nitwhiz/maas/pkg/server"
 	"os"
 	"path"
 )
@@ -23,5 +23,5 @@ func GetServerFromCwd() (server.Server, error) {
 
 	maasFile := path.Join(cwd, "maas.json")
 
-	return server.FromConfig(maasFile, server.ConfigOpts{})
+	return server.FromConfig(maasFile, server.ConfigOptions{})
 }

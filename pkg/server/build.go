@@ -8,10 +8,17 @@ import (
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/nat"
+	"io"
 	"os"
 	"strconv"
 	"strings"
 )
+
+type PullPrinterFunc func(reader *io.ReadCloser) error
+
+type BuildOptions struct {
+	PullPrinter PullPrinterFunc
+}
 
 func (s *Server) getContainerEnv() []string {
 	env := []string{
@@ -25,8 +32,39 @@ func (s *Server) getContainerEnv() []string {
 	return env
 }
 
+func (s *Server) ensureImageAvailability(docker *client.Client) (io.ReadCloser, error) {
+	images, err := docker.ImageList(context.Background(), types.ImageListOptions{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	imageExists := false
+
+	for _, image := range images {
+		for _, tag := range image.RepoTags {
+			if tag == s.VMConfig.Image {
+				imageExists = true
+				break
+			}
+		}
+	}
+
+	if !imageExists {
+		reader, err := docker.ImagePull(context.Background(), s.VMConfig.Image, types.ImagePullOptions{})
+
+		if err != nil {
+			return nil, err
+		}
+
+		return reader, nil
+	}
+
+	return nil, nil
+}
+
 // Build builds the server container
-func (s *Server) Build(docker *client.Client) error {
+func (s *Server) Build(docker *client.Client, opts BuildOptions) error {
 	cwd, err := os.Getwd()
 
 	if err != nil {
@@ -86,6 +124,20 @@ func (s *Server) Build(docker *client.Client) error {
 
 	cwdSegments := strings.Split(cwd, "/")
 	containerName := cwdSegments[len(cwdSegments)-1]
+
+	pullReader, err := s.ensureImageAvailability(docker)
+
+	if err != nil {
+		return err
+	}
+
+	if opts.PullPrinter != nil {
+		err := opts.PullPrinter(&pullReader)
+
+		if err != nil {
+			return err
+		}
+	}
 
 	_, err = docker.ContainerCreate(context.Background(), &containerConfig, &hostConfig, &networkingConfig, nil, containerName)
 
